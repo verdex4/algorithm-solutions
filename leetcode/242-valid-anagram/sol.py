@@ -5,13 +5,17 @@ class Solution:
         if len(s) != len(t):
             return False # words with different length is not anagrams
         
-        counter_s = defaultdict(lambda: 0)
-        counter_t = defaultdict(lambda: 0)
+        freq = [0] * (ord('z') - ord('a'))
         for i in range(len(s)):
-            counter_s[s[i]] += 1
-            counter_t[t[i]] += 1
+            freq[ord(s[i]) - ord('a')] += 1
+            freq[ord(t[i]) - ord('a')] -= 1
         
-        return counter_s == counter_t
+        for f in freq:
+            if f != 0:
+                return False
+            
+        return True
+
     
 sol = Solution()
 print(sol.isAnagram("anagram", "nagaram"))
