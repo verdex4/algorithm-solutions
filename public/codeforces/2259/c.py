@@ -2,38 +2,30 @@ import sys
 
 def solve():
     data = sys.stdin.read().split()
-    t = int(data[0])
-    cur = 1
+    it = iter(data)
+    t = int(next(it))
+
     for _ in range(t):
-        n = int(data[cur])
-        arr = list(map(int, data[cur + 1 : cur + 1 + n]))
-        cur += n + 1
+        n = int(next(it))
+        arr = [int(next(it)) for _ in range(n)]
 
-        start = 0
-        while start < n and abs(arr[start]) != 1:
-            start += 1
-
-        if start == n:
+        first = 0
+        while first < n and abs(arr[first]) != 1:
+            first += 1
+        if first == n:
             print(*arr, sep=" ")
             continue
-        if arr[start] == -1:
-            arr[start] = 1
+        
+        last = len(arr) - 1
+        while last > 0 and abs(arr[last]) != 1:
+            last -= 1
 
-        pos = [start]
-        for i in range(start + 1, n):
-            if abs(arr[i]) == 1:
-                pos.append(i)
+        arr[first] = 1
+        arr[last] = 1
 
-        next_pos = 2
-        for i in range(start + 1, n):
-            if arr[i] == 1:
-                next_pos += 1
+        for i in range(first + 1, last):
             if arr[i] == -1:
-                if next_pos < len(pos):
-                    arr[i] = 0
-                    next_pos += 1
-                else:
-                    arr[i] = 1
+                arr[i] = 0
 
         print(*arr, sep=" ")
 
