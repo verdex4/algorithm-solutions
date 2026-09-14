@@ -208,3 +208,6 @@ __marimo__/
 
 # Internal problems
 **/internal/
+
+# Playground and small tests
+/playground.py
